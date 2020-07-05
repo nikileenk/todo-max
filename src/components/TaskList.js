@@ -14,7 +14,10 @@ class TasktList extends Component {
         this.state = {
             list: null,
             status:this.props.stat,
-            currentState:null
+            currentState:null,
+            searchData: null,
+            noData:false,
+            lastSearch:""
         }
         
     }
