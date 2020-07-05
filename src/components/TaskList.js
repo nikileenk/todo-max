@@ -149,6 +149,9 @@ class TasktList extends Component {
                         </div>
                         : <p>Please Wait...</p>
                 }
+                    {
+                        this.state.noData?<h3>No Search Data Found</h3>:null
+                    } 
             </Container>
         );
     }
