@@ -4,14 +4,14 @@ This project was bootstrapped with [JSON API Server](https://github.com/typicode
 npm install -g json-server
 
 ## Start JSON Server
-Goto Path "db.json"
+Goto Path "db.json"<br />
 json-server --watch db.json
 
 ## Admin Credentials
-user - admin
+user - admin<br />
 pass - admin
 
 ## NPM Setup
-npm install
-cd path
+npm install<br />
+cd path<br />
 npm start
