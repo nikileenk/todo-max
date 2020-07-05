@@ -7,49 +7,31 @@
   ],
   "task": [
     {
-      "currentState": "Completed",
-      "title": "testt34",
-      "des": "testtt34",
-      "created": "2020-07-05",
-      "due": "2020-07-26",
-      "priority": "Low",
-      "id": 8
-    },
-    {
       "currentState": "Pending",
-      "title": "test5",
-      "des": "test5",
+      "title": "Buy Milk",
+      "des": "From Store",
       "created": "2020-07-05",
       "due": "2020-07-06",
+      "priority": "High",
+      "id": 1
+    },
+    {
+      "currentState": "Completed",
+      "title": "Buy Grocery",
+      "des": "from Market",
+      "created": "2020-07-05",
+      "due": "2020-07-07",
       "priority": "Medium",
-      "id": 9
-    },
-    {
-      "currentState": "Completed",
-      "title": "buy milk",
-      "des": "store",
-      "created": "2020-07-05",
-      "due": "2020-07-06",
-      "priority": "High",
-      "id": 10
+      "id": 2
     },
     {
       "currentState": "Pending",
-      "title": "ee",
-      "des": "ee",
+      "title": "Buy Sweet",
+      "des": "From Bakery",
       "created": "2020-07-05",
-      "due": "2020-07-12",
-      "priority": "High",
-      "id": 11
-    },
-    {
-      "currentState": "Pending",
-      "title": "ee2",
-      "des": "ee2",
-      "created": "2020-07-05",
-      "due": "2020-07-19",
-      "priority": "High",
-      "id": 12
+      "due": "2020-07-09",
+      "priority": "Low",
+      "id": 3
     }
   ]
 }

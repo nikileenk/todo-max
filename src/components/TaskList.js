@@ -18,9 +18,9 @@ class TasktList extends Component {
         }
         
     }
-    componentDidMount() {
+    componentDidMount(props) {
        this.getData()
-       
+    //    this.setState({status:this.props.stat})
     }
     getData(props)
     {
@@ -73,13 +73,31 @@ class TasktList extends Component {
                                     {
                                         this.state.list.map((item, i) =>
                                             <tr>
-                                                <td>{item.id}</td>
-                                                {/* <td>{item.currentState}</td> */}
-                                                <td>{item.title}</td>
-                                                <td>{item.des}</td>
-                                                <td>{item.created}</td>
-                                                <td>{item.due}</td>
-                                                <td>{item.priority}</td>
+                                                {item.currentState == "Completed" ?
+                                                <td style={{textDecoration:"line-through"}}>{item.id}</td>:
+                                                <td>{item.id}</td> }
+
+                                                {item.currentState == "Completed" ?
+                                                <td style={{textDecoration:"line-through"}}>{item.title}</td>:
+                                                <td>{item.title}</td> }
+                                              
+                                              {item.currentState == "Completed" ?
+                                                <td style={{textDecoration:"line-through"}}>{item.des}</td>:
+                                                <td>{item.des}</td> }
+
+                                                {item.currentState == "Completed" ?
+                                                <td style={{textDecoration:"line-through"}}>{item.created}</td>:
+                                                <td>{item.created}</td> }
+
+                                                {item.currentState == "Completed" ?
+                                                <td style={{textDecoration:"line-through"}}>{item.due}</td>:
+                                                <td>{item.due}</td> }
+
+                                                {item.currentState == "Completed" ?
+                                                <td style={{textDecoration:"line-through"}}>{item.priority}</td>:
+                                                <td>{item.priority}</td> }
+                                                
+
                                                 <td><Link to={"/update/"+item.id}><FontAwesomeIcon icon={faEdit} color="orange" /> </Link>
                                                 <span onClick={()=>this.delete(item.id)}><FontAwesomeIcon icon={faTrash} color="red" /> </span>
                                                 
