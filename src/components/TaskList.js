@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Container,Button} from 'react-bootstrap'
+import { Table, Container,Button,Form} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEdit,faTrash } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
@@ -22,6 +22,9 @@ class TasktList extends Component {
        this.getData()
     //    this.setState({status:this.props.stat})
     }
+
+    
+
     getData(props)
     {
         
@@ -33,6 +36,25 @@ class TasktList extends Component {
 
         
     }
+
+    search(key) {
+        console.warn(key)
+        this.setState({lastSearch:key})
+        fetch("http://localhost:3000/task?q=" + key).then((data) => {
+            data.json().then((resp) => {
+                console.warn("resp", resp)
+                if(resp.length>0)
+                {
+                    this.setState({searchData:resp,noData:false,list:resp})
+                }
+                else
+                {
+                    this.setState({noData:true,searchData:null})
+                }
+            })
+        })
+    }
+
     delete(id)
     {
         axios.delete('http://localhost:3000/task/'+id)
@@ -50,6 +72,9 @@ class TasktList extends Component {
         return (
             <Container>
              <br/>
+
+             <Form.Control type="text"  onChange={(event) => this.search(event.target.value)}   placeholder="Search Tasks" /><br/>
+             
                 {/* <NavBarManu /> */}
         {/* <h2>Task List {this.state.status}</h2> */}
                 {
