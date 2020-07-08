@@ -78,7 +78,7 @@ class TaskUpdate extends Component {
             <Container>
                 {/* <NavBarManu /> */}
                 <div className="upclass">
-        <h1>Update Task : {this.state.title}</h1>
+                <h1>Update Task : {this.state.title}</h1>
                 <div>
 
                 <Form>

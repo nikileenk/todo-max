@@ -45,6 +45,10 @@ class TasktList extends Component {
         
     }
 
+    group(val){
+        console.log(val)
+    }
+
     search(key) {
         console.warn(key)
         this.setState({lastSearch:key})
@@ -86,7 +90,7 @@ class TasktList extends Component {
              <div className="group">
                     <Form.Group controlId="exampleForm.ControlSelect1">
                             <Form.Label>Group By</Form.Label>
-                            <Form.Control as="select" onChange={(event) => { this.setState({ group: event.target.value }) }}>
+                            <Form.Control as="select" onChange={(event) => this.group(event.target.value)}>
                             <option value="None">None</option>
                             <option value="Created">Created On</option>
                             <option value="Pending">Pending On</option>

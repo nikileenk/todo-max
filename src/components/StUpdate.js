@@ -37,7 +37,9 @@ class StUpdate extends Component {
         })
     }
 
-
+    handleClose(){
+        this.props.history.push('/')
+    }
 
     update()
     {
@@ -50,7 +52,7 @@ class StUpdate extends Component {
             body: JSON.stringify(this.state)
         }).then((result)=>{
             result.json().then((resp)=>{
-                alert("Task Status has heen Updated")
+                this.props.history.push('/')
             })
         })
     }
@@ -58,9 +60,10 @@ class StUpdate extends Component {
         console.log(this.state.currentState)
         return (
             <Container>
-                <NavBarManu />
+                {/* <NavBarManu /> */}
                 <br/>
-        <h2>Update Status of : {this.state.title}</h2><br/>
+                <div className="upclass">
+                <h2>Update Status of : {this.state.title}</h2><br/>
                 <div>
                 <Col md={{ span: 4, offset: 4 }}>
                 <Form>
@@ -72,32 +75,34 @@ class StUpdate extends Component {
                             </Form.Control>
                         </Form.Group>
                 </Form>
-                </Col>
+                </Col><br/>
                
-                    
-                {/* <input onChange={(event) => { this.setState({ currentState: event.target.value }) }}
-                        placeholder="currentState" value={this.state.currentState} /> <br /><br /> */}
+                <Button variant="secondary" onClick={() => { this.handleClose() }} style={{marginRight:"20px"}}>
+                    Cancel
+                    </Button>
 
                     <Button variant="primary" onClick={() => { this.update() }}>
                     Update Status
                     </Button>
 
+                    
+                    </div>
                 
 
                     <input onChange={(event) => { this.setState({ title: event.target.value }) }}
-                        placeholder="Title" value={this.state.title} style={{display:"none"}} /> <br /><br />
+                        placeholder="Title" value={this.state.title} style={{display:"none"}} />
 
                     <input onChange={(event) => { this.setState({ des: event.target.value }) }}
-                        placeholder="Description"  value={this.state.des} style={{display:"none"}}/> <br /><br />
+                        placeholder="Description"  value={this.state.des} style={{display:"none"}}/> 
 
                     <input onChange={(event) => { this.setState({ created: event.target.value }) }}
-                        placeholder="Created"  value={this.state.created} style={{display:"none"}}/> <br /><br />
+                        placeholder="Created"  value={this.state.created} style={{display:"none"}}/> 
 
                     <input onChange={(event) => { this.setState({ due: event.target.value }) }}
-                        placeholder="Due"  value={this.state.due} style={{display:"none"}}/> <br /><br />
+                        placeholder="Due"  value={this.state.due} style={{display:"none"}}/> 
 
                     <input onChange={(event) => { this.setState({ priority: event.target.value }) }}
-                        placeholder="Priority"  value={this.state.priority} style={{display:"none"}}/> <br /><br />
+                        placeholder="Priority"  value={this.state.priority} style={{display:"none"}}/> 
 
                     
                 </div>
