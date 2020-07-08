@@ -22,7 +22,8 @@ class TasktList extends Component {
             noData:false,
             lastSearch:"",
             key:this.props.search,
-            group:"none"
+            group:null,
+            plist:null
            
         }
         
@@ -46,7 +47,15 @@ class TasktList extends Component {
     }
 
     group(val){
-        console.log(val)
+        this.setState({group:val})
+        console.log(this.state.group)
+       
+            axios.get(`http://localhost:3000/task?q=`+ val)
+            .then(response=>{
+            console.log(response.data)
+            this.setState({list:response.data});
+        })
+        
     }
 
     search(key) {
@@ -89,12 +98,13 @@ class TasktList extends Component {
              <br/>
              <div className="group">
                     <Form.Group controlId="exampleForm.ControlSelect1">
-                            <Form.Label>Group By</Form.Label>
+                            <Form.Label>Sort By</Form.Label>
                             <Form.Control as="select" onChange={(event) => this.group(event.target.value)}>
-                            <option value="None">None</option>
-                            <option value="Created">Created On</option>
-                            <option value="Pending">Pending On</option>
-                            <option value="Priority">Priority</option>
+                            <option value="">None</option>
+                            <option value="High">High</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Low">Low</option>
+                           
                             </Form.Control>
                         </Form.Group>
              </div> 
@@ -168,7 +178,9 @@ class TasktList extends Component {
                                                     
                                                 </td>
                                             </tr>
-                                        )
+                                        ).reverse()
+                                        
+                                        
                                     }
                                 </tbody>
                             </Table>
