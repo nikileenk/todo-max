@@ -19,12 +19,7 @@ class TaskCreate extends Component {
     create () {
 
         if(this.state.title == null){
-            // if((this.state.title).length <2 || (this.state.title).length >5 ){
-            //     this.setState({data:"Title length should be min 10 and max 140"})
-            // }
-            // else{
-            //     this.setState({data:"Summary cannot be empty"})
-            // }
+          
             this.setState({data:"Summary cannot be empty"})
         }
 
