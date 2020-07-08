@@ -19,7 +19,12 @@ class TaskCreate extends Component {
     create () {
 
         if(this.state.title == null){
-            // alert("Title cannot be empty")
+            // if((this.state.title).length <2 || (this.state.title).length >5 ){
+            //     this.setState({data:"Title length should be min 10 and max 140"})
+            // }
+            // else{
+            //     this.setState({data:"Summary cannot be empty"})
+            // }
             this.setState({data:"Summary cannot be empty"})
         }
 
@@ -76,12 +81,12 @@ class TaskCreate extends Component {
 
                     <Form.Group controlId="formBasicSum">
                         <Form.Label>Summary</Form.Label>
-                        <Form.Control type="Text" placeholder="Enter Summary" onChange={(event) => { this.setState({ title: event.target.value }) }} required/>
+                        <Form.Control type="Text" placeholder="Enter Summary" onChange={(event) => { this.setState({ title: event.target.value }) }} maxLength={140} minLength={10} required/>
                     </Form.Group>
 
                     <Form.Group controlId="exampleForm.ControlTextarea1">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control as="textarea" rows="3" onChange={(event) => { this.setState({ des: event.target.value }) }} />
+                        <Form.Control as="textarea" rows="3" onChange={(event) => { this.setState({ des: event.target.value }) }} maxLength={500} minLength={10}/>
                     </Form.Group>
 
                     <Row>

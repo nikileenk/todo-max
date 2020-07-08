@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Container,Button,Form,Col,Row} from 'react-bootstrap'
+import { Table, Container,Button,Form,Col,Row,Modal} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faEdit,faTrash } from '@fortawesome/free-solid-svg-icons';
 import './CompStyle.css';
@@ -23,7 +23,8 @@ class TasktList extends Component {
             lastSearch:"",
             key:this.props.search,
             group:null,
-            plist:null
+            plist:null,
+            show:false
            
         }
         
@@ -58,6 +59,11 @@ class TasktList extends Component {
         
     }
 
+    handleClose(){
+        this.setState({show:false})
+       
+    }
+
     search(key) {
         console.warn(key)
         this.setState({lastSearch:key})
@@ -74,6 +80,16 @@ class TasktList extends Component {
                 }
             })
         })
+    }
+
+    view(id){
+       
+        axios.get(`http://localhost:3000/task?q=`+ id,)
+        .then(response=>{
+        console.log(response.data)
+        this.setState({plist:response.data});
+    })
+    this.setState({show:true})
     }
 
     delete(id)
@@ -138,28 +154,28 @@ class TasktList extends Component {
                                         this.state.list.map((item, i) =>
                                             <tr key={i}>
                                                 {item.currentState === "Completed" ?
-                                                <td style={{textDecoration:"line-through"}}>{item.id}</td>:
-                                                <td>{item.id}</td> }
+                                                <td style={{textDecoration:"line-through"}} onClick={()=>this.view(item.title)}>{item.id}</td>:
+                                                <td onClick={()=>this.view(item.title)}>{item.id}</td> }
 
                                                 {item.currentState === "Completed" ?
-                                                <td style={{textDecoration:"line-through"}}>{item.title}</td>:
-                                                <td>{item.title}</td> }
+                                                <td style={{textDecoration:"line-through"}} onClick={()=>this.view(item.title)}>{item.title}</td>:
+                                                <td onClick={()=>this.view(item.title)}>{item.title}</td> }
                                               
                                               {item.currentState === "Completed" ?
-                                                <td style={{textDecoration:"line-through"}}>{item.des}</td>:
-                                                <td>{item.des}</td> }
+                                                <td style={{textDecoration:"line-through"}} onClick={()=>this.view(item.title)}>{item.des}</td>:
+                                                <td onClick={()=>this.view(item.title)}>{item.des}</td> }
 
                                                 {item.currentState === "Completed" ?
-                                                <td style={{textDecoration:"line-through"}}>{item.created}</td>:
-                                                <td>{item.created}</td> }
+                                                <td style={{textDecoration:"line-through"}} onClick={()=>this.view(item.title)}>{item.created}</td>:
+                                                <td onClick={()=>this.view(item.title)}>{item.created}</td> }
 
                                                 {item.currentState === "Completed" ?
-                                                <td style={{textDecoration:"line-through"}}>{item.due}</td>:
-                                                <td>{item.due}</td> }
+                                                <td style={{textDecoration:"line-through"}} onClick={()=>this.view(item.title)}>{item.due}</td>:
+                                                <td onClick={()=>this.view(item.title)}>{item.due}</td> }
 
                                                 {item.currentState === "Completed" ?
-                                                <td style={{textDecoration:"line-through"}}>{item.priority}</td>:
-                                                <td>{item.priority}</td> }
+                                                <td style={{textDecoration:"line-through"}} onClick={()=>this.view(item.title)}>{item.priority}</td>:
+                                                <td onClick={()=>this.view(item.title)}>{item.priority}</td> }
                                                 
 
                                                 <td><Link to={"/update/"+item.id}><FontAwesomeIcon icon={faEdit} color="orange" /> </Link>
@@ -190,6 +206,57 @@ class TasktList extends Component {
                     {
                         this.state.noData?<h3>No Search Data Found</h3>:null
                     } 
+
+                   
+
+
+                    <Modal show={this.state.show} onHide={(e) => this.handleClose(e)} size="lg" backdrop="static" keyboard={false}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>View Task</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                    {this.state.plist !== null ? this.state.plist.map((item, i) =>
+                    <Form>
+                        <Form.Group controlId="formBasicSum">
+                        <Form.Label>Summary</Form.Label>
+                        <Form.Control type="Text" value={item.title} disabled/>
+                        </Form.Group>
+
+                        <Form.Group controlId="exampleForm.ControlTextarea1">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control as="textarea" rows="3" value={item.des} />
+                        </Form.Group>
+
+                        <Row>
+                        <Col>
+                        <Form.Group controlId="formBasicSum">
+                        <Form.Label>Due</Form.Label>
+                        <Form.Control type="Text" value={item.due} disabled/>
+                        </Form.Group>
+                        </Col>
+                        <Col>
+                        <Form.Group controlId="formBasicSum">
+                        <Form.Label>Priority</Form.Label>
+                        <Form.Control type="Text" value={item.priority} disabled/>
+                        </Form.Group>
+                        </Col>
+                        </Row>
+                    </Form>
+
+                    
+                    
+                    ): null}
+                  
+                    </Modal.Body>
+                    {/* <Modal.Footer>
+                    <Button variant="secondary" onClick={() => this.handleClose()}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => this.handleClose()}>
+                        Save Changes
+                    </Button>
+                    </Modal.Footer> */}
+                </Modal>
             </Container>
         );
     }

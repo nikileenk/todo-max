@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Container, Form, Button,Row,Col } from 'react-bootstrap'
 import NavBarManu from './NavBarManu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faTimes } from '@fortawesome/free-solid-svg-icons';
 import './CompStyle.css';
 
 class TaskUpdate extends Component {
@@ -78,6 +80,7 @@ class TaskUpdate extends Component {
             <Container>
                 {/* <NavBarManu /> */}
                 <div className="upclass">
+                <FontAwesomeIcon icon={faTimes} color="black" className="times" onClick={() => { this.handleClose() }} />
                 <h1>Update Task : {this.state.title}</h1>
                 <div>
 

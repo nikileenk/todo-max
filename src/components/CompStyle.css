@@ -44,3 +44,14 @@
     margin-top: 20px;
     font-size: 12px;
 }
+
+.times{
+   
+    font-size: 26px;
+    padding: 4px;
+   
+    position: relative;
+    top: -40px;
+    left: 50%;
+    color: grey;
+}
