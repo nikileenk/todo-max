@@ -1,86 +1,57 @@
-import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
-import NavBarManu from './NavBarManu'
+import React, { Component } from 'react'
+import { Table, Container,Button,Form,Modal} from 'react-bootstrap';
+import  { Redirect } from 'react-router-dom'
+import TaskCreate from './TaskCreate';
 
-class Test extends Component {
-    constructor()
-    {
+
+export default class Test extends Component {
+
+    constructor(){
         super();
         this.state = {
-            currentState: "pending",
-            title: null,
-            des: null,
-            created: null,
-            due:null,
-            priority:null
+            show : false
         }
     }
-    componentDidMount()
-    { 
-        
-        fetch('http://localhost:3000/task/'+this.props.match.params.id).then((response) => {
-            response.json().then((result) => {
-                console.warn(result)
-                 this.setState({
-                    id:result.id,
-                    currentState:result.currentState,
-                    title:result.title,
-                    des:result.des,
-                    created:result.created,
-                    due:result.due,
-                    priority:result.priority
 
-                  })
-            })
-        })
+    handleShow(){
+        this.setState({show:true})
+
+
     }
 
-
-
-    update()
-    {
-        fetch('http://localhost:3000/task/'+this.state.id, {
-            method: "PUT",
-            headers:{
-                'Content-Type':'application/json'
-            },
-            body: JSON.stringify(this.state)
-        }).then((result)=>{
-            result.json().then((resp)=>{
-                alert("Restaurant has heen Update")
-            })
-        })
+    handleClose(){
+        // this.setState({show:false})
+        this.props.history.push('/')
+       
     }
+
     render() {
+
         
         return (
-            <Container>
-                <NavBarManu />
-                <h1>Task Update</h1>
-                <div>
-                <input onChange={(event) => { this.setState({ currentState: event.target.value }) }}
-                        placeholder="currentState" value={this.state.currentState} /> <br /><br />
+            <>
+                <Button variant="primary" onClick={() => this.handleShow()}>
+                    Launch demo modal
+                </Button>
 
-                    <input onChange={(event) => { this.setState({ title: event.target.value }) }}
-                        placeholder="Title" value={this.state.title} style={{display:"none"}} /> <br /><br />
+                <Modal show={this.state.show} onHide={() => this.handleClose()} size="lg">
+                    <Modal.Header closeButton>
+                    <Modal.Title>Add Task</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
 
-                    <input onChange={(event) => { this.setState({ des: event.target.value }) }}
-                        placeholder="Description"  value={this.state.des}/> <br /><br />
-
-                    <input onChange={(event) => { this.setState({ created: event.target.value }) }}
-                        placeholder="Created"  value={this.state.created}/> <br /><br />
-
-                    <input onChange={(event) => { this.setState({ due: event.target.value }) }}
-                        placeholder="Due"  value={this.state.due}/> <br /><br />
-
-                    <input onChange={(event) => { this.setState({ priority: event.target.value }) }}
-                        placeholder="Priority"  value={this.state.priority}/> <br /><br />
-
-                    <button onClick={() => { this.update() }}>Update Status</button>
-                </div>
-           </Container>
-        );
+                   <TaskCreate />
+                    </Modal.Body>
+                    {/* <Modal.Footer>
+                    <Button variant="secondary" onClick={() => this.handleClose()}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={() => this.handleClose()}>
+                        Save Changes
+                    </Button>
+                    </Modal.Footer> */}
+                </Modal>
+            </>
+        )
     }
 }
-
-export default Test;

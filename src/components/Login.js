@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button } from 'react-bootstrap';
-import NavBarManu from './NavBarManu'
+import { Button,Form, Container } from 'react-bootstrap';
+import NavBarManu from './NavBarManu';
+import './CompStyle.css';
 class Login extends Component {
     constructor() {
         super();
@@ -28,14 +29,30 @@ class Login extends Component {
     render() {
         return (
             <div>
-                <NavBarManu />
-                <input type="text"
-                    placeholder="enter name"
-                    name="user" onChange={(event) => this.setState({ name: event.target.value })} defaultValue="admin" /> <br /> <br />
-                <input
-                    placeholder="enter password"
-                    type="password" name="password" onChange={(event) => this.setState({ password: event.target.value })} defaultValue="admin"/> <br /> <br />
-                <button onClick={() => { this.login() }} >Login</button>
+                 <Container>
+                {/* <NavBarManu /> */}
+                <br/><br/>
+                   <div className="login">
+                       <h3>ToDo App</h3><br/>
+                    <Form.Group controlId="formBasicSum">
+                        <Form.Label>Enter Name</Form.Label>
+                        <Form.Control type="Text" placeholder="enter name" name="user" onChange={(event) => this.setState({ name: event.target.value })} defaultValue="admin" required/>
+                    </Form.Group>
+                
+
+                    <Form.Group controlId="formBasicSum">
+                        <Form.Label>Enter Password</Form.Label>
+                        <Form.Control type="password" placeholder="enter password" name="password" onChange={(event) => this.setState({ password: event.target.value })}defaultValue="admin" required/>
+                    </Form.Group>
+            
+
+                    <Button variant="primary" onClick={() => { this.login() }}>
+                        Login
+                    </Button>
+                    <br/>
+                    <p>NOTE: Please Check JSON API Server is Started</p>
+                    </div>
+                    </Container>
 
             </div>
         );

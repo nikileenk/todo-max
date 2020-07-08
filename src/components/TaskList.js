@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import { Table, Container,Button,Form} from 'react-bootstrap'
+import { Table, Container,Button,Form,Col,Row} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faEdit,faTrash } from '@fortawesome/free-solid-svg-icons'
+import {faEdit,faTrash } from '@fortawesome/free-solid-svg-icons';
+import './CompStyle.css';
 import axios from 'axios';
 import {
     Link
   } from 'react-router-dom'
-import NavBarManu from './NavBarManu'
 
 class TasktList extends Component {
+
+   
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -17,21 +20,23 @@ class TasktList extends Component {
             currentState:null,
             searchData: null,
             noData:false,
-            lastSearch:""
+            lastSearch:"",
+            key:this.props.search,
+            group:"none"
+           
         }
         
-    }
-    componentDidMount(props) {
-       this.getData()
-    //    this.setState({status:this.props.stat})
-    }
-
-    
-
-    getData(props)
-    {
         
-        axios.get(`http://localhost:3000/task?q=`+ this.state.status)
+    }
+
+
+    componentDidMount() {
+       this.getData()
+    }
+
+    getData=()=>{
+       
+        axios.get(`http://localhost:3000/task?q=`+ this.props.stat)
         .then(response=>{
             console.log(response.data)
             this.setState({list:response.data});
@@ -62,24 +67,41 @@ class TasktList extends Component {
     {
         axios.delete('http://localhost:3000/task/'+id)
         .then(resp=>{
-            alert("Task Delete")
+           
             this.getData()
         })
 
       
     }
 
+    
    
     render() {
-
+        
         return (
+            
             <Container>
+               
              <br/>
-
-             <Form.Control type="text"  onChange={(event) => this.search(event.target.value)}   placeholder="Search Tasks" /><br/>
+             <div className="group">
+                    <Form.Group controlId="exampleForm.ControlSelect1">
+                            <Form.Label>Group By</Form.Label>
+                            <Form.Control as="select" onChange={(event) => { this.setState({ group: event.target.value }) }}>
+                            <option value="None">None</option>
+                            <option value="Created">Created On</option>
+                            <option value="Pending">Pending On</option>
+                            <option value="Priority">Priority</option>
+                            </Form.Control>
+                        </Form.Group>
+             </div> 
+             <div className="search">
+             <Form.Label>Search tasks</Form.Label>      
+             <Form.Control type="text"  onChange={(event) => this.search(event.target.value)}   placeholder="Search Tasks" />
+             </div>
              
-                {/* <NavBarManu /> */}
-        {/* <h2>Task List {this.state.status}</h2> */}
+             <br/>
+             
+              
                 {
                     this.state.list ?
                         <div>
@@ -100,37 +122,37 @@ class TasktList extends Component {
                                 <tbody>
                                     {
                                         this.state.list.map((item, i) =>
-                                            <tr>
-                                                {item.currentState == "Completed" ?
+                                            <tr key={i}>
+                                                {item.currentState === "Completed" ?
                                                 <td style={{textDecoration:"line-through"}}>{item.id}</td>:
                                                 <td>{item.id}</td> }
 
-                                                {item.currentState == "Completed" ?
+                                                {item.currentState === "Completed" ?
                                                 <td style={{textDecoration:"line-through"}}>{item.title}</td>:
                                                 <td>{item.title}</td> }
                                               
-                                              {item.currentState == "Completed" ?
+                                              {item.currentState === "Completed" ?
                                                 <td style={{textDecoration:"line-through"}}>{item.des}</td>:
                                                 <td>{item.des}</td> }
 
-                                                {item.currentState == "Completed" ?
+                                                {item.currentState === "Completed" ?
                                                 <td style={{textDecoration:"line-through"}}>{item.created}</td>:
                                                 <td>{item.created}</td> }
 
-                                                {item.currentState == "Completed" ?
+                                                {item.currentState === "Completed" ?
                                                 <td style={{textDecoration:"line-through"}}>{item.due}</td>:
                                                 <td>{item.due}</td> }
 
-                                                {item.currentState == "Completed" ?
+                                                {item.currentState === "Completed" ?
                                                 <td style={{textDecoration:"line-through"}}>{item.priority}</td>:
                                                 <td>{item.priority}</td> }
                                                 
 
                                                 <td><Link to={"/update/"+item.id}><FontAwesomeIcon icon={faEdit} color="orange" /> </Link>
-                                                <span onClick={()=>this.delete(item.id)}><FontAwesomeIcon icon={faTrash} color="red" /> </span>
+                                                <span onClick={()=>{ if (window.confirm('Are you sure you wish to delete this task?')) this.delete(item.id)}}><FontAwesomeIcon icon={faTrash} color="red" /> </span>
                                                 
                                                 </td>
-                                                <td> {item.currentState =="Pending"?
+                                                <td> {item.currentState ==="Pending"?
                                                 <Link to={"/StUpdate/"+item.id}>
                                                 <Button variant="danger" style={{color:"white"}}>{item.currentState} 
                                                 </Button>

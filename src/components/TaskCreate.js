@@ -12,13 +12,15 @@ class TaskCreate extends Component {
             des: null,
             created: null,
             due:null,
-            priority:"High"
+            priority:"High",
+            sdata:""
         }
     }
-    create() {
+    create () {
 
         if(this.state.title == null){
-            alert("Title cannot be empty")
+            // alert("Title cannot be empty")
+            this.setState({data:"Summary cannot be empty"})
         }
 
         else if(this.state.des == null){
@@ -38,10 +40,13 @@ class TaskCreate extends Component {
             body: JSON.stringify(this.state)
         }).then((result)=>{
             result.json().then((resp)=>{
-                alert("Task added")
+                this.setState({data:"Task Added Successfully"})
             })
         })
+        
         }
+
+       
         
     }
 
@@ -60,14 +65,14 @@ class TaskCreate extends Component {
         return (
            
                 <Container>
-                <NavBarManu />
-                <h1>Add Task</h1>
+                {/* <NavBarManu /> */}
+                {/* <h1>Add Task</h1> */}
                 <div>
-                    {}
+                
                 <Form>
                     <input onChange={(event) => { this.setState({ currentState: event.target.value }) }}
                         placeholder="CurrentState" style={{display:"none"}} />
-                    <br /><br />
+                   
 
                     <Form.Group controlId="formBasicSum">
                         <Form.Label>Summary</Form.Label>
@@ -96,12 +101,14 @@ class TaskCreate extends Component {
                             </Form.Control>
                         </Form.Group>
                         </Col>
-                    </Row>
+                    </Row><br/>
 
                     <Button variant="primary" onClick={() => { this.create() }} style={{float:"right"}}>
                         Add Task
                     </Button>
-                </Form> 
+                </Form>
+
+                {this.state.data === "Task Added Successfully"? <h6 style={{color:"green"}}>{this.state.data}</h6> :<h6 style={{color:"red"}}>{this.state.data}</h6> } 
                    
 
 

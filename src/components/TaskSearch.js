@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table,Form,Container,Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee,faEdit,faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faEdit,faTrash } from '@fortawesome/free-solid-svg-icons'
 import {
     Link
   } from 'react-router-dom'
@@ -87,7 +87,7 @@ class TaskSearch extends Component {
                                                 <td><Link to={"/update/"+item.id}><FontAwesomeIcon icon={faEdit} color="orange" /> </Link>
                                                 <span onClick={()=>this.delete(item.id)}><FontAwesomeIcon icon={faTrash} color="red" /> </span>
                                                 </td>
-                                                <td> {item.currentState =="Pending"?
+                                                <td> {item.currentState ==="Pending"?
                                                 <Link to={"/StUpdate/"+item.id}>
                                                 <Button variant="danger" style={{color:"white"}}>{item.currentState} 
                                                 </Button>

@@ -57,6 +57,7 @@ class TaskUpdate extends Component {
         return (
             <Container>
                 <NavBarManu />
+                <div className="upclass">
         <h1>Update Task : {this.state.title}</h1>
                 <div>
 
@@ -118,6 +119,7 @@ class TaskUpdate extends Component {
                         placeholder="Priority"  value={this.state.priority}/> <br /><br /> */}
 
                     {/* <button onClick={() => { this.update() }}>Update Task</button> */}
+                </div>
                 </div>
            </Container>
         );

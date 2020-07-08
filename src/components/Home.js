@@ -1,44 +1,58 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState,useEffect, Component} from 'react';
 import { Container,Tab,Tabs,Form } from 'react-bootstrap';
 import NavBarManu from './NavBarManu'
 import TaskList from './TaskList';
-import Test from './Test';
-function Home() {
-   
-        const [key, setKey] = useState('home');
-       
-       
-        useEffect(()=>{
-            setKey(key)
-            console.log(key)
-        },[key])
-        
 
+class Home extends Component{
+
+    state ={
+        key:"home",
+        sr:""
+    }
+
+        search = (e) =>{
+                this.setState({sr:e.target.value})
+                
+        }
+        
+render(){
         return (
             
            <Container>
                 <NavBarManu />
                 <br/><br/>
 
-                <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" activeKey={key} onSelect={(k) => setKey(k)}>
+                
+
+                <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" activeKey={this.state.key} onSelect={(k) => this.setState({key:k})}>
                     <Tab eventKey="home" title="All">
-                    <TaskList stat={""}/>
+                 
                     </Tab>
                     <Tab eventKey="Pending" title="Pending" >
-                    <TaskList stat={"pending"}/>
+                  
                     </Tab>
 
                     <Tab eventKey="Completed" title="Completed">
-                    <TaskList stat={"Completed"}/>
+                   
                     </Tab>
                     
                 </Tabs>
-               
+
+              
+
+                {this.state.key ==="home"? <TaskList stat={""} search={this.props.sr}/> : null }
+
+                {this.state.key ==="Pending"? <TaskList stat={this.state.key} search={this.props.sr}/> : null}
+
+                {this.state.key ==="Completed"? <TaskList stat={this.state.key} search={this.props.sr}/> : null}
+
+             
 
             </Container>
         
         );
     
+}
 }
 
 export default Home;
