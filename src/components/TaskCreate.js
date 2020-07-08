@@ -24,11 +24,11 @@ class TaskCreate extends Component {
         }
 
         else if(this.state.des == null){
-            alert("Description cannot be empty")
+            this.setState({data:"Description cannot be empty"})
         }
 
         else if(this.state.due == null){
-            alert("DUE cannot be empty")
+            this.setState({data:"DUE cannot be empty"})
         }
 
         else{

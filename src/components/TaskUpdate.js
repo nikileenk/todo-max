@@ -13,7 +13,8 @@ class TaskUpdate extends Component {
             des: null,
             created: null,
             due:null,
-            priority:null
+            priority:null,
+            data:null
         }
     }
     componentDidMount()
@@ -40,6 +41,20 @@ class TaskUpdate extends Component {
 
     update()
     {
+        if(this.state.title == null){
+            // alert("Title cannot be empty")
+            this.setState({data:"Summary cannot be empty"})
+        }
+
+        else if(this.state.des == null){
+            this.setState({data:"Description cannot be empty"})
+        }
+
+        else if(this.state.due == null){
+            this.setState({data:"DUE cannot be empty"})
+        }
+
+        else{
         fetch('http://localhost:3000/task/'+this.state.id, {
             method: "PUT",
             headers:{
@@ -48,15 +63,20 @@ class TaskUpdate extends Component {
             body: JSON.stringify(this.state)
         }).then((result)=>{
             result.json().then((resp)=>{
-                alert("Task Updated")
+                this.setState({data:"Task Updated Successfully"})
             })
         })
+        }
+    }
+
+    handleClose(){
+        this.props.history.push('/')
     }
     render() {
         
         return (
             <Container>
-                <NavBarManu />
+                {/* <NavBarManu /> */}
                 <div className="upclass">
         <h1>Update Task : {this.state.title}</h1>
                 <div>
@@ -95,30 +115,27 @@ class TaskUpdate extends Component {
                         </Col>
                     </Row><br/>
 
+                    {this.state.data === "Task Updated Successfully"? <h6 style={{color:"green",float:"left"}}>{this.state.data}</h6> :<h6 style={{color:"red",float:"left"}}>{this.state.data}</h6> } 
+
                     <Button variant="primary" onClick={() => { this.update() }} style={{float:"right"}}>
                     Update Task
                     </Button>
+
+                    <Button variant="secondary" onClick={() => { this.handleClose() }} style={{float:"right",marginRight:"20px"}}>
+                    Close
+                    </Button>
+
                     </Form>
 
                 <input onChange={(event) => { this.setState({ currentState: event.target.value }) }}
-                        placeholder="currentState" value={this.state.currentState} style={{display:"none"}} /> <br /><br />
+                        placeholder="currentState" value={this.state.currentState} style={{display:"none"}} />
 
-                    {/* <input onChange={(event) => { this.setState({ title: event.target.value }) }}
-                        placeholder="Title" value={this.state.title} style={{display:"none"}}/> <br /><br />
-
-                    <input onChange={(event) => { this.setState({ des: event.target.value }) }}
-                        placeholder="Description"  value={this.state.des}/> <br /><br /> */}
+                    
 
                     <input onChange={(event) => { this.setState({ created: event.target.value }) }}
-                        placeholder="Created"  value={this.state.created} style={{display:"none"}}/> <br /><br />
+                        placeholder="Created"  value={this.state.created} style={{display:"none"}}/> 
 
-                    {/* <input onChange={(event) => { this.setState({ due: event.target.value }) }}
-                        placeholder="Due"  value={this.state.due}/> <br /><br />
-
-                    <input onChange={(event) => { this.setState({ priority: event.target.value }) }}
-                        placeholder="Priority"  value={this.state.priority}/> <br /><br /> */}
-
-                    {/* <button onClick={() => { this.update() }}>Update Task</button> */}
+                    
                 </div>
                 </div>
            </Container>

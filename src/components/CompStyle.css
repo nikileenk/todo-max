@@ -15,7 +15,10 @@
 }
 
 .upclass{
-    padding: 6%;
+    width: 65%;
+    margin: auto;
+    padding: 8%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 .group{
